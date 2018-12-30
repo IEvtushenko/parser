@@ -1,0 +1,21 @@
+{
+  "name": "ivan/www",
+  "require-dev": {
+    "php": ">=7.1.0"
+  },
+  "authors": [
+    {
+      "name": "ivan",
+      "email": "ievtushenko1989@gmail.com"
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  },
+  "require": {}
+}
