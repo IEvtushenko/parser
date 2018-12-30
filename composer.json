@@ -1,5 +1,5 @@
 {
-  "name": "ivan/www",
+  "name": "ivan/parserBrackets",
   "require-dev": {
     "php": ">=7.1.0"
   },
