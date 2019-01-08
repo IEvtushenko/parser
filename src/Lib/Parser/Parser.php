@@ -6,6 +6,15 @@ class Parser
 {
     const ANTI_PATTERN = '~(\S[^/)/(])~';
     const PATTERN = "~[()/s]~";
+    const DIR_PATH = 'test.work/';
+
+    private $options = 'p:';
+    private $arguments = [];
+
+    public function __construct()
+    {
+        $this->arguments = getopt($this->options);
+    }
 
     /**
      * @param string $string
@@ -20,15 +29,45 @@ class Parser
         } else {
             return null;
         }
-
     }
 
-    public function runFile(string $filePath)
+    /**
+     * @param string|null $string
+     *
+     * @return bool|null
+     */
+    public function run(?string $string = ''): ?bool
     {
-        //Получение файла вызов parser
+        if (!empty($this->arguments)) {
+            if (array_key_exists('p', $this->arguments)) {
+                $filePath = sprintf('%s%s', self::DIR_PATH, $this->arguments['p']);
+                return $this->runFileParsing($filePath);
+            }
+        } else {
+            if (!empty($string)) {
+                return $this->runParsing($string);
+            }
+        }
+        return false;
     }
 
-    public function runParsing(string $string)
+    /**
+     * @param string $filePath
+     *
+     * @return bool|null
+     */
+    public function runFileParsing(string $filePath): ?bool
+    {
+        $string = file_get_contents($filePath);
+        return $this->runParsing($string);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return bool|null
+     */
+    private function runParsing(string $string): ?bool
     {
         $matches = null;
         if (!$this->findError($string)) {
